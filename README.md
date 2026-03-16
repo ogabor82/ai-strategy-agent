@@ -1,3 +1,9 @@
 # AI Strategy Agent (MVP)
 
-Experimental workflow that reads financial news and generates option strategy ideas using LangGraph agents.
+Experimental LangGraph-based workflow that:
+
+- reads financial news from RSS feeds
+- extracts market-relevant events
+- selects candidate tickers
+- proposes simple options strategy ideas
+- generates a daily report

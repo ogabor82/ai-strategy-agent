@@ -1,5 +1,7 @@
 langchain
 langgraph
+langchain-openai
 feedparser
 pydantic
 python-dotenv
+requests
