@@ -71,14 +71,22 @@ def fetch_rss_news() -> List[RawNewsItem]:
 
         for entry in parsed.entries:
             raw_title = _get_entry_value(entry, "title")
-            raw_summary = _get_entry_value(entry, "summary", "description")
+            raw_summary = _get_entry_value(
+                entry,
+                "summary",
+                "description",
+                "subtitle",
+            )
             raw_link = _get_entry_value(entry, "link")
-            raw_published = _get_entry_value(entry, "published", "pubDate")
+            raw_published = _get_entry_value(entry, "published", "pubDate", "updated")
+
+            cleaned_title = _clean_text(raw_title)
+            cleaned_summary = _clean_text(raw_summary)
 
             item = RawNewsItem(
                 source=source,
-                title=_clean_text(raw_title),
-                summary=_clean_text(raw_summary),
+                title=cleaned_title,
+                summary=cleaned_summary,
                 link=raw_link.strip(),
                 published=raw_published.strip(),
             )
