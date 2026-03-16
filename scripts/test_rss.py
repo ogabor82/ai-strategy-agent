@@ -21,7 +21,7 @@ def main() -> None:
         print(f"[{item.source}] {item.title}")
         print(f"Published: {item.published}")
         print(f"Link: {item.link}")
-        print(f"Summary: {item.summary[:200]}")
+        print(f"Summary: {item.summary[:250]}")
         print("-" * 80)
 
 
