@@ -31,6 +31,31 @@ def _clean_text(text: str) -> str:
     return text
 
 
+def _normalize_title_for_key(title: str) -> str:
+    title = title.lower().strip()
+    title = re.sub(r"\s+", " ", title)
+    return title
+
+
+def _deduplicate_items(items: List[RawNewsItem]) -> List[RawNewsItem]:
+    deduped: List[RawNewsItem] = []
+    seen_keys: set[str] = set()
+
+    for item in items:
+        title_key = _normalize_title_for_key(item.title)
+
+        if not title_key:
+            continue
+
+        if title_key in seen_keys:
+            continue
+
+        seen_keys.add(title_key)
+        deduped.append(item)
+
+    return deduped
+
+
 def fetch_rss_news() -> List[RawNewsItem]:
     items: List[RawNewsItem] = []
 
@@ -59,4 +84,8 @@ def fetch_rss_news() -> List[RawNewsItem]:
             )
             items.append(item)
 
-    return items
+    deduped_items = _deduplicate_items(items)
+
+    print(f"[DEBUG] Before dedupe={len(items)} | After dedupe={len(deduped_items)}")
+
+    return deduped_items
