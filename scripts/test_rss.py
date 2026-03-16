@@ -14,7 +14,15 @@ def main() -> None:
         print(f"- {feed['source']}: {feed['url']}")
 
     items = fetch_rss_news()
-    print(f"\nFetched {len(items)} items.")
+
+    print(f"\nFetched {len(items)} items.\n")
+
+    for item in items[:10]:
+        print(f"[{item.source}] {item.title}")
+        print(f"Published: {item.published}")
+        print(f"Link: {item.link}")
+        print(f"Summary: {item.summary[:200]}")
+        print("-" * 80)
 
 
 if __name__ == "__main__":
